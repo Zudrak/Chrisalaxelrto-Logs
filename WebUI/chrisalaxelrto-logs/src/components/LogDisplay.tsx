@@ -24,7 +24,7 @@ const LogDisplay: React.FC<LogDisplayProps> = ({ logs, downloadLogs }) => {
   return (
     <>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h6" gutterBottom  sx={{ marginY: "auto" }}>
           Logs
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: "0.5em" }}>
