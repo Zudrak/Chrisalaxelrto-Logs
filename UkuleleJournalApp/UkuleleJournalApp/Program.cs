@@ -17,8 +17,8 @@ else
 // Add CORS policy
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowLocalhost",
-        builder => builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost")
+    options.AddPolicy("AllowSpecificOrigins",
+        builder => builder.WithOrigins("http://11.0.0.1:5173", "http://localhost")
                           .AllowAnyHeader()
                           .AllowAnyMethod()
                           .AllowCredentials());
@@ -26,7 +26,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-app.UseCors("AllowLocalhost");
+app.UseCors("AllowSpecificOrigins");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
