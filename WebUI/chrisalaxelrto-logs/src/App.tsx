@@ -24,7 +24,7 @@ const App: React.FC = () => {
 
       const downloadLogs = () => {
         const link = document.createElement('a');
-        link.href = 'http://11.0.0.1:5020//api/journal/download';
+        link.href = 'http://11.0.0.1:5020/api/journal/download';
         link.download = 'logs.txt';
         document.body.appendChild(link);
         link.click();
