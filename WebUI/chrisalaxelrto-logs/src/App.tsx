@@ -25,7 +25,7 @@ const App: React.FC = () => {
 
     return (
         <Container>
-            <Typography variant="h4" gutterBottom sx={{ marginTop: 2 }}>
+            <Typography variant="h4" gutterBottom sx={{ marginTop: 2, width: '80%', maxWidth: '1000px' }}>
                 Ukulele
             </Typography>
             <LogDisplay logs={logs} />
