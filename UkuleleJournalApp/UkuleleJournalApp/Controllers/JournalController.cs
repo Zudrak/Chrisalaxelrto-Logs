@@ -28,17 +28,10 @@ public class JournalController : ControllerBase
     [HttpGet("download")]
     public async Task<IActionResult> DownloadJournal(CancellationToken cancellationToken)
     {
-        var entries = await _journalService.GetAllJournalEntries(cancellationToken);
-        var stringBuilder = new StringBuilder();
+        var filePath = await _journalService.GetAllJournalEntries(cancellationToken);
+        var fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
+        System.IO.File.Delete(filePath); // Clean up the temporary file
 
-        foreach (var entry in entries)
-        {
-            stringBuilder.AppendLine(entry);
-        }
-
-        var byteArray = Encoding.UTF8.GetBytes(stringBuilder.ToString());
-        var stream = new MemoryStream(byteArray);
-
-        return File(stream, "application/octet-stream", "journal.log");
+        return File(fileBytes, "application/octet-stream", "journal.log");
     }
 }

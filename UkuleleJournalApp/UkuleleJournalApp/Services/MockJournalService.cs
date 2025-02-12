@@ -2,11 +2,6 @@ using System.Runtime.CompilerServices;
 
 public class MockJournalService : IJournalService
 {
-    public Task<IEnumerable<string>> GetAllJournalEntries(CancellationToken cancellationToken = default)
-    {
-        return Task.FromResult<IEnumerable<string>>(new List<string> { "Mock entry 1", "Mock entry 2" });
-    }
-
     public async IAsyncEnumerable<string> StreamJournalEntries([EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
         int counter = 1;
@@ -17,4 +12,9 @@ public class MockJournalService : IJournalService
             yield return $"Mock entry {counter++}";
         }
     }
+    public Task<string> GetAllJournalEntries(CancellationToken cancellationToken = default)
+    {
+        return Task.FromResult("Mock entry 1\nMock entry 2\nMock entry 3");
+    }
+
 }
