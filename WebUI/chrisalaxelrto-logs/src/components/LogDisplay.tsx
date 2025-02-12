@@ -27,7 +27,7 @@ const LogDisplay: React.FC<LogDisplayProps> = ({ logs, downloadLogs }) => {
         <Typography variant="h6" gutterBottom>
           Logs
         </Typography>
-        <Button variant="contained" onClick={downloadLogs} sx={{ marginBottom: 2 }}>
+        <Button variant="contained" onClick={downloadLogs} sx={{ marginY: "auto" }}>
                 Download Logs
             </Button>
         <IconButton
