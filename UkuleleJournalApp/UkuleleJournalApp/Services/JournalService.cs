@@ -18,13 +18,18 @@ public class JournalService : IJournalService
         process.Start();
 
         using var reader = process.StandardOutput;
-        while (!process.HasExited || !reader.EndOfStream || !cancellationToken.IsCancellationRequested )
+        while (!process.HasExited && !reader.EndOfStream && !cancellationToken.IsCancellationRequested)
         {
             var line = await reader.ReadLineAsync();
             if (line != null)
             {
                 yield return line;
             }
+        }
+
+        if (cancellationToken.IsCancellationRequested)
+        {
+            process.Kill();
         }
     }
 
