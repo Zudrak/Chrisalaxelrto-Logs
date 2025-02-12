@@ -27,16 +27,18 @@ const LogDisplay: React.FC<LogDisplayProps> = ({ logs, downloadLogs }) => {
         <Typography variant="h6" gutterBottom>
           Logs
         </Typography>
-        <Button variant="contained" onClick={downloadLogs} sx={{ marginY: "auto" }}>
-                Download Logs
-            </Button>
-        <IconButton
-          onClick={toggleSnapping}
-          sx={{ marginY: "auto" }}
-          color={isSnapping ? 'secondary' : 'default'}
-        >
-          {!isSnapping ? <AutoScrollOffIcon /> : <AutoScrollIcon />}
-        </IconButton>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Button variant="outlined" onClick={downloadLogs} sx={{ marginY: "auto" }}>
+            Download
+          </Button>
+          <IconButton
+            onClick={toggleSnapping}
+            sx={{ marginY: "auto" }}
+            color={isSnapping ? 'secondary' : 'default'}
+          >
+            {!isSnapping ? <AutoScrollOffIcon /> : <AutoScrollIcon />}
+          </IconButton>
+        </Box>
       </Box>
       <Divider sx={{ marginBottom: 2 }} />
       <Box
