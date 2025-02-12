@@ -40,14 +40,26 @@ public class JournalService : IJournalService
         var processStartInfo = new ProcessStartInfo
         {
             FileName = "journalctl",
-            Arguments = $"-u ukulele > {filePath}",
-            RedirectStandardOutput = false,
-            UseShellExecute = true,
+            Arguments = "-u ukulele",
+            RedirectStandardOutput = true,
+            UseShellExecute = false,
             CreateNoWindow = true
         };
 
         using var process = new Process { StartInfo = processStartInfo };
         process.Start();
+
+        using var reader = process.StandardOutput;
+        using var writer = new StreamWriter(filePath);
+        while (!process.HasExited && !reader.EndOfStream && !cancellationToken.IsCancellationRequested)
+        {
+            var line = await reader.ReadLineAsync();
+            if (line != null)
+            {
+                await writer.WriteLineAsync(line);
+            }
+        }
+
         await process.WaitForExitAsync(cancellationToken);
 
         return filePath;
