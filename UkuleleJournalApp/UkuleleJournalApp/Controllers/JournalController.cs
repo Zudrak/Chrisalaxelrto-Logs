@@ -1,3 +1,4 @@
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -21,5 +22,23 @@ public class JournalController : ControllerBase
             await Response.WriteAsync($"data: {entry}\n\n");
             await Response.Body.FlushAsync();
         }
+    }
+
+
+    [HttpGet("download")]
+    public async Task<IActionResult> DownloadJournal(CancellationToken cancellationToken)
+    {
+        var entries = await _journalService.GetAllJournalEntries(cancellationToken);
+        var stringBuilder = new StringBuilder();
+
+        foreach (var entry in entries)
+        {
+            stringBuilder.AppendLine(entry);
+        }
+
+        var byteArray = Encoding.UTF8.GetBytes(stringBuilder.ToString());
+        var stream = new MemoryStream(byteArray);
+
+        return File(stream, "application/octet-stream", "journal.log");
     }
 }
