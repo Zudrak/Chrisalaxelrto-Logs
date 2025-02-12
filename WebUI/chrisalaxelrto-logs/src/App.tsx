@@ -6,7 +6,7 @@ const App: React.FC = () => {
     const [logs, setLogs] = useState<string[]>([]);
 
     useEffect(() => {
-        const eventSource = new EventSource('http://127.0.0.1:5020/api/journal/stream');
+        const eventSource = new EventSource('http://11.0.0.1:5020/api/journal/stream');
     
         eventSource.onmessage = (event) => {
             setLogs((prevEntries) => [...prevEntries, event.data]);
