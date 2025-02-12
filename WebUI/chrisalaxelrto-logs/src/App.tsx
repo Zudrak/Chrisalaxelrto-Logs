@@ -22,13 +22,21 @@ const App: React.FC = () => {
         };
       }, []);
 
+      const downloadLogs = () => {
+        const link = document.createElement('a');
+        link.href = 'https://chrisalaxelrto.porebazu.lat/api/journal/download';
+        link.download = 'logs.txt';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
 
     return (
         <Container>
             <Typography variant="h4" gutterBottom sx={{ marginTop: 2, width: '80%', maxWidth: '1000px' }}>
                 Ukulele
             </Typography>
-            <LogDisplay logs={logs} />
+            <LogDisplay logs={logs} downloadLogs={downloadLogs} />
         </Container>
     );
 };

@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Box, Typography, Paper, IconButton, Divider } from '@mui/material';
+import { Box, Typography, Paper, IconButton, Divider, Button } from '@mui/material';
 import { KeyboardDoubleArrowDown as AutoScrollIcon, CompareArrows as AutoScrollOffIcon } from '@mui/icons-material';
 
 interface LogDisplayProps {
   logs: string[];
+  downloadLogs: () => void;
 }
 
-const LogDisplay: React.FC<LogDisplayProps> = ({ logs }) => {
+const LogDisplay: React.FC<LogDisplayProps> = ({ logs, downloadLogs }) => {
   const boxRef = useRef<HTMLDivElement>(null);
   const [isSnapping, setIsSnapping] = useState(true);
 
@@ -26,6 +27,9 @@ const LogDisplay: React.FC<LogDisplayProps> = ({ logs }) => {
         <Typography variant="h6" gutterBottom>
           Logs
         </Typography>
+        <Button variant="contained" onClick={downloadLogs} sx={{ marginBottom: 2 }}>
+                Download Logs
+            </Button>
         <IconButton
           onClick={toggleSnapping}
           sx={{ marginY: "auto" }}
